@@ -1,4 +1,4 @@
-# Project: Vitalis (Android outdoor risk app)
+# Project: SYNQ (Android outdoor risk app)
 
 ## Status: ML upgrade in progress (hackathon)
 
@@ -28,17 +28,19 @@ score and falls back to the heuristic engine when the service is unreachable.
   `UiState.mlRiskScore` drives it; `HomeScreen` passes it through.
 - `AndroidManifest.xml` — `usesCleartextTraffic` enabled for local HTTP.
 
-## NEXT SESSION — remaining task (user asked to finish deployment)
+## NEXT SESSION — deploy ML service + wire app to live URL
 
-Deploy the FastAPI service online and point the app at the live URL. Steps:
+Done: SSH key set up, repo pushed to `github.com:Sunlesswastaken/SYNQ.git`.
 
-1. Terminal: `.venv/bin/uvicorn main:app --host 0.0.0.0 --port 5000` (local test).
-2. Push to GitHub (repo is NOT currently git-inited; run `git init` first).
-3. Render (recommended, free tier): New > Blueprint > select repo -> `render.yaml`
-   auto-detects Dockerfile + `/health` check.
-   Railway alternative: detect Dockerfile automatically.
-4. Verify: `curl https://<url>/health` and POST a `/predict` sample.
-5. In `MlRiskClient.kt` change `BASE_URL` to `https://<url>/`. Rebuild APK.
-6. Optional unlock: on-device ONNX route via `skl2onnx` — ask if wanted.
+Remaining:
+
+1. Deploy FastAPI service (Render recommended): go to render.com > New > Blueprint > select SYNQ repo.
+   `render.yaml` + `Dockerfile` already in repo, should auto-detect.
+   Railway is an alternative (detects Dockerfile automatically).
+2. Verify deployment: `curl https://<url>/health` and POST a `/predict` sample.
+3. In `app/src/main/java/com/synq/app/data/risk/MlRiskClient.kt` change
+   `BASE_URL` from `http://10.0.2.2:5000/` to `https://<live-url>/`.
+4. Rebuild APK: `./gradlew :app:installDebug`.
+5. Optional: on-device ONNX route via `skl2onnx` — ask if wanted.
 
 Running locally for the emulator: start uvicorn, then `./gradlew :app:installDebug`.
