@@ -1,6 +1,6 @@
-# Synq
+# SYNQ
 
-A native Android app, ported from the `outdoor-guard.html` prototype, that estimates
+A native Android app, ported from the `SYNQ` prototype, that estimates
 heat/sun outdoor-activity risk from live weather plus your own **Health Connect** data
 (steps, sleep, resting heart rate, exercise, hydration). Dark, glass-panel UI throughout.
 
