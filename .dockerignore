@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+data/
+generate_training_data.py
+train_model.py
+.git/
+.idea/
+.gradle/
+build/
+app/
+nohup.out

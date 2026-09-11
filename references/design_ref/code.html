@@ -1,0 +1,245 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<title>Synq — Wearable &amp; Activity</title>
+<!-- Tailwind CSS CDN with forms and container queries plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration for Material You / Synq Warm Palette -->
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
+          },
+          colors: {
+            synq: {
+              bg: '#FBF5EE',          /* Warm ambient base */
+              surface: '#F6EAE1',     /* Primary soft container tint */
+              surfaceHigh: '#FFF7F2', /* High-contrast elevated card */
+              card: '#FFFFFF',        /* Clean elevated white surface */
+              accent: '#357266',      /* Muted pine green brand dot */
+              terracotta: '#A85A32',  /* Primary warm CTA & indicator */
+              terracottaDark: '#6B3114',
+              sandLight: '#EEDFD2',
+              sandBorder: '#E6D5C3',
+              olive: '#828B47',       /* Sub-indicator secondary tint */
+              textPrimary: '#2D231E',
+              textSecondary: '#6A5B52',
+              textMuted: '#97887E',
+            }
+          },
+          borderRadius: {
+            '3xl': '1.75rem',
+            '4xl': '2.25rem'
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="typography">
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      background-color: #FBF5EE;
+      color: #2D231E;
+    }
+  </style>
+<style data-purpose="interactive-states">
+    .tap-target {
+      min-height: 44px;
+      min-width: 44px;
+      touch-action: manipulation;
+    }
+    /* Smooth toggle animation */
+    .switch-checkbox:checked + .switch-track {
+      background-color: #6B3114;
+    }
+    .switch-checkbox:checked + .switch-track .switch-thumb {
+      transform: translateX(1.25rem);
+      background-color: #FFF7F2;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex justify-center bg-[#ECE4DC] sm:py-6">
+<!-- BEGIN: MobileDeviceFrame -->
+<main class="w-full max-w-[430px] min-h-screen bg-synq-bg px-4 pt-3 pb-12 flex flex-col shadow-2xl relative overflow-x-hidden select-none" data-purpose="mobile-screen-container">
+<!-- BEGIN: TopAppBar -->
+
+<!-- END: TopAppBar -->
+<div class="flex flex-col gap-4">
+<!-- BEGIN: WearableSyncHeroCard -->
+<section class="bg-synq-surface rounded-4xl p-5 border border-synq-sandBorder flex flex-col gap-4 shadow-sm" data-purpose="wearable-main-card">
+<!-- Header row of the card -->
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="p-1.5 rounded-full bg-synq-sandLight text-synq-terracottaDark">
+<!-- Smartwatch / Connected icon -->
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<rect height="10" rx="3" width="12" x="6" y="7"></rect>
+<path d="M9 4h6M9 20h6" stroke-linecap="round"></path>
+</svg>
+</span>
+<h2 class="text-sm font-bold text-synq-textPrimary tracking-tight">Wearable &amp; activity — Health Connect</h2>
+</div>
+<p class="text-xs text-synq-textSecondary mt-1">Demo data (simulated) • On-device privacy store</p>
+</div>
+</div>
+<!-- BEGIN: 2x3 MetricGrid -->
+<!-- 6 Telemetry metric cards matching the Health Connect simulated profile -->
+<div class="grid grid-cols-2 gap-2.5" data-purpose="telemetry-metric-grid">
+<!-- Metric 1: Steps -->
+<article class="bg-synq-surfaceHigh/90 p-3.5 rounded-2xl border border-white/60 flex flex-col justify-between shadow-xs">
+<div class="flex items-center justify-between text-synq-textSecondary mb-1">
+<span class="text-[11px] font-semibold">Steps</span>
+<svg class="w-3.5 h-3.5 text-synq-terracotta" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<div>
+<p class="text-2xl font-extrabold text-synq-textPrimary tracking-tight">3,906</p>
+<div class="w-full bg-synq-sandLight h-1.5 rounded-full mt-2 overflow-hidden">
+<div class="bg-synq-terracotta h-full rounded-full w-[48%]"></div>
+</div>
+</div>
+</article>
+<!-- Metric 2: Active Minutes -->
+<article class="bg-synq-surfaceHigh/90 p-3.5 rounded-2xl border border-white/60 flex flex-col justify-between shadow-xs">
+<div class="flex items-center justify-between text-synq-textSecondary mb-1">
+<span class="text-[11px] font-semibold">Active minutes</span>
+<svg class="w-3.5 h-3.5 text-synq-olive" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="9"></circle>
+<polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+</div>
+<div>
+<p class="text-2xl font-extrabold text-synq-textPrimary tracking-tight">23 <span class="text-sm font-semibold text-synq-textSecondary">min</span></p>
+<span class="text-[10px] font-medium text-synq-olive mt-1 block font-semibold">↗ Light exertion</span>
+</div>
+</article>
+<!-- Metric 3: Sleep -->
+<article class="bg-synq-surfaceHigh/90 p-3.5 rounded-2xl border border-white/60 flex flex-col justify-between shadow-xs">
+<div class="flex items-center justify-between text-synq-textSecondary mb-1">
+<span class="text-[11px] font-semibold">Sleep last night</span>
+<svg class="w-3.5 h-3.5 text-synq-terracotta" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<div>
+<p class="text-2xl font-extrabold text-synq-textPrimary tracking-tight">7.75 <span class="text-sm font-semibold text-synq-textSecondary">hr</span></p>
+<span class="text-[10px] text-emerald-800 font-semibold bg-emerald-100/70 px-1.5 py-0.5 rounded-md inline-block mt-0.5">Restful</span>
+</div>
+</article>
+<!-- Metric 4: Resting Heart Rate -->
+<article class="bg-synq-surfaceHigh/90 p-3.5 rounded-2xl border border-white/60 flex flex-col justify-between shadow-xs">
+<div class="flex items-center justify-between text-synq-textSecondary mb-1">
+<span class="text-[11px] font-semibold">Resting heart rate</span>
+<svg class="w-3.5 h-3.5 text-rose-500" fill="currentColor" viewBox="0 0 24 24">
+<path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
+</svg>
+</div>
+<div>
+<p class="text-2xl font-extrabold text-synq-textPrimary tracking-tight">70 <span class="text-sm font-semibold text-synq-textSecondary">bpm</span></p>
+<span class="text-[10px] text-synq-textMuted font-medium block mt-0.5">Baseline typical</span>
+</div>
+</article>
+<!-- Metric 5: Hydration Logged -->
+<article class="bg-synq-surfaceHigh/90 p-3.5 rounded-2xl border border-white/60 flex flex-col justify-between shadow-xs relative">
+<div class="flex items-center justify-between text-synq-textSecondary mb-1">
+<span class="text-[11px] font-semibold">Hydration logged</span>
+<svg class="w-3.5 h-3.5 text-sky-600" fill="currentColor" viewBox="0 0 24 24">
+<path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+</svg>
+</div>
+<div class="flex items-baseline justify-between">
+<p class="text-2xl font-extrabold text-synq-textPrimary tracking-tight">0.75 <span class="text-sm font-semibold text-synq-textSecondary">L</span></p>
+<span class="text-xs font-bold text-synq-terracotta leading-none p-1 rounded-full hover:bg-synq-sandLight cursor-pointer">+</span>
+</div>
+<div class="w-full bg-synq-sandLight h-1.5 rounded-full mt-2 overflow-hidden">
+<div class="bg-sky-600 h-full rounded-full w-[35%]"></div>
+</div>
+</article>
+<!-- Metric 6: Last Sync -->
+<article class="bg-synq-surfaceHigh/90 p-3.5 rounded-2xl border border-white/60 flex flex-col justify-between shadow-xs">
+<div class="flex items-center justify-between text-synq-textSecondary mb-1">
+<span class="text-[11px] font-semibold">Last sync</span>
+<svg class="w-3.5 h-3.5 text-synq-textMuted" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<div>
+<p class="text-2xl font-extrabold text-synq-textPrimary tracking-tight">5m <span class="text-sm font-semibold text-synq-textSecondary">ago</span></p>
+<span class="text-[10px] text-synq-accent font-semibold block mt-0.5">Encrypted local storage</span>
+</div>
+</article>
+</div>
+<!-- END: 2x3 MetricGrid -->
+<!-- BEGIN: QuickLogAndActions -->
+<div class="pt-2 flex flex-col gap-3.5" data-purpose="quick-log-section">
+<!-- Water Log Action Row -->
+<div>
+<label class="text-[11px] font-bold text-synq-textSecondary uppercase tracking-wider block mb-1.5">Log water</label>
+<div class="flex items-center gap-2">
+<button class="tap-target flex-1 py-2 px-3 rounded-full bg-synq-sandLight hover:bg-[#E6D4C4] active:scale-95 transition-all text-xs font-bold text-synq-terracottaDark text-center" type="button">
+                +250 ml
+              </button>
+<button class="tap-target flex-1 py-2 px-3 rounded-full bg-synq-sandLight hover:bg-[#E6D4C4] active:scale-95 transition-all text-xs font-bold text-synq-terracottaDark text-center" type="button">
+                +500 ml
+              </button>
+<button class="tap-target px-3.5 py-2 text-xs font-bold text-synq-terracotta hover:text-synq-terracottaDark underline decoration-2 underline-offset-4 active:scale-95 transition-all" type="button">
+                Sync now
+              </button>
+</div>
+</div>
+<!-- Sleep Override Row -->
+<div>
+<label class="text-[11px] font-bold text-synq-textSecondary uppercase tracking-wider block mb-1.5" for="override-sleep">Override sleep (hr)</label>
+<div class="flex items-center gap-2">
+<div class="relative flex-1">
+<input class="w-full rounded-2xl border-synq-sandBorder bg-synq-surfaceHigh/80 text-synq-textPrimary text-sm font-semibold py-2.5 px-3.5 focus:border-synq-terracotta focus:ring-synq-terracotta/20" id="override-sleep" step="0.1" type="number" value="7.5">
+</div>
+<button class="tap-target px-6 py-2.5 rounded-full bg-synq-sandLight hover:bg-[#E6D4C4] active:scale-95 transition-all text-xs font-bold text-synq-terracottaDark" type="button">
+                Save
+              </button>
+</div>
+</div>
+<!-- Divider -->
+<hr class="border-synq-sandBorder/80 my-1">
+<!-- Baseline Switch Toggle (M3 Pattern) -->
+<div class="flex items-center justify-between gap-3">
+<label class="relative inline-flex items-center cursor-pointer select-none">
+<input checked="" class="sr-only switch-checkbox" type="checkbox">
+<div class="switch-track w-11 h-6 bg-[#C4B3A3] rounded-full transition-colors duration-200 relative p-0.5">
+<div class="switch-thumb w-5 h-5 bg-white rounded-full shadow-sm transition-transform duration-200"></div>
+</div>
+</label>
+<span class="text-xs font-semibold text-synq-textSecondary flex-1">Compare against my personal baseline</span>
+</div>
+<!-- Disconnect Action -->
+<div class="pt-1">
+<button class="text-xs font-bold text-rose-700 hover:text-rose-900 active:underline py-1 tap-target inline-flex items-center" type="button">
+              Disconnect
+            </button>
+</div>
+</div>
+<!-- END: QuickLogAndActions -->
+</section>
+<!-- END: WearableSyncHeroCard -->
+<!-- BEGIN: WhatThisMeansSection -->
+
+<!-- END: WhatThisMeansSection -->
+<!-- BEGIN: MedicalDisclaimerFooter -->
+
+<!-- END: MedicalDisclaimerFooter -->
+</div>
+<!-- Bottom Home Indicator Pill (iOS Pattern) -->
+<div aria-hidden="true" class="w-32 h-1 bg-stone-400/50 rounded-full self-center mt-2 mb-1"></div>
+</main>
+<!-- END: MobileDeviceFrame -->
+
+
+
+
+</body></html>

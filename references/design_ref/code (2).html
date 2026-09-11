@@ -1,0 +1,384 @@
+<!DOCTYPE html><html lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<title>Synq — Health &amp; Weather Risk</title>
+<!-- Tailwind CSS CDN with forms and container plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            m3: {
+              background: '#FBF8F5',
+              surface: '#F6EFEA',
+              surfaceHigh: '#EFE7E0',
+              surfaceHighest: '#E6DCD4',
+              surfaceCard: '#FFFFFF',
+              primary: '#6D381E',
+              onPrimary: '#FFFFFF',
+              primaryContainer: '#F7BC9F',
+              onPrimaryContainer: '#3B1705',
+              secondaryContainer: '#E8DCD4',
+              onSecondaryContainer: '#2D231E',
+              tertiary: '#5B6241',
+              tertiaryContainer: '#E0E7BD',
+              onTertiaryContainer: '#191E05',
+              outline: '#85736B',
+              outlineVariant: '#D8C3B9',
+              neutralVariant: '#53433C',
+              tonalHero: '#FFD9C7',
+              tonalHeroDark: '#B95D34',
+              riskLow: '#4B7B55',
+              riskLowBg: '#E7F2E8',
+              riskMid: '#A86C20',
+              riskMidBg: '#FDF0DC',
+            }
+          },
+          fontFamily: {
+            sans: ['-apple-system', 'BlinkMacSystemFont', '"Google Sans"', '"Segoe UI"', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+          },
+          borderRadius: {
+            '3xl': '28px',
+            '4xl': '36px',
+          },
+          boxShadow: {
+            'm3-elevation-1': '0px 1px 3px 1px rgba(0, 0, 0, 0.05), 0px 1px 2px 0px rgba(0, 0, 0, 0.08)',
+            'm3-elevation-2': '0px 2px 6px 2px rgba(0, 0, 0, 0.06), 0px 1px 2px 0px rgba(0, 0, 0, 0.09)',
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="custom-typography">
+    body {
+      -webkit-tap-highlight-color: transparent;
+      letter-spacing: -0.015em;
+    }
+    .circular-chart {
+      transform: rotate(-90deg);
+    }
+    .circle-bg {
+      fill: none;
+      stroke: rgba(185, 93, 52, 0.15);
+      stroke-width: 3.2;
+    }
+    .circle {
+      fill: none;
+      stroke: #4B7B55;
+      stroke-width: 3.2;
+      stroke-linecap: round;
+      stroke-dasharray: 23 100;
+      transition: stroke-dasharray 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  </style>
+</head>
+<body class="bg-[#FBF8F5] text-[#241A15] font-sans antialiased min-h-screen flex justify-center selection:bg-[#F7BC9F]">
+<!-- Mobile Container Frame (Material 3 Mobile Shell) -->
+<main class="w-full max-w-[430px] min-h-screen px-4 pt-3 pb-12 flex flex-col gap-5">
+<!-- BEGIN: TopBar -->
+<header class="flex items-center pt-3 pb-1 px-1 justify-center" data-purpose="app-header">
+<div class="flex items-center justify-center"><h1 class="text-4xl font-black tracking-tight text-[#301F17] drop-shadow-xs flex items-baseline">Synq<span class="inline-block w-2 h-2 rounded-full bg-emerald-600 ml-1 mb-1.5"></span></h1></div>
+
+</header>
+<!-- END: TopBar -->
+<!-- BEGIN: PrimaryHeroCard -->
+<section class="rounded-4xl bg-gradient-to-br from-[#FFE0CF] via-[#FFDAC5] to-[#FAD0B9] p-6 shadow-m3-elevation-1 border border-[#F5C5AB]/60 relative overflow-hidden" data-purpose="risk-score-hero">
+<!-- Ambient light effect -->
+<div class="absolute -top-10 -right-10 w-44 h-44 bg-white/30 rounded-full blur-2xl pointer-events-none"></div>
+<!-- Top Row: Radial Gauge & Risk Categorization -->
+<div class="flex items-center justify-between gap-4">
+<!-- Radial Arc Chart Container -->
+<div class="relative w-28 h-28 flex-shrink-0 flex items-center justify-center">
+<svg class="circular-chart w-full h-full drop-shadow-xs" viewBox="0 0 36 36">
+<path class="circle-bg" d="M18 2.0845
+                a 15.9155 15.9155 0 0 1 0 31.831
+                a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+<path class="circle" d="M18 2.0845
+                a 15.9155 15.9155 0 0 1 0 31.831
+                a 15.9155 15.9155 0 0 1 0 -31.831" stroke-dasharray="23, 100"></path>
+</svg>
+<div class="absolute flex flex-col items-center justify-center text-center">
+<span class="text-3xl font-extrabold text-[#2F170D] leading-none tracking-tight">23</span>
+<span class="text-[11px] font-medium text-[#7A4F39] mt-0.5">out of 100</span>
+</div>
+</div>
+<!-- Risk Description Badge -->
+<div class="flex-1 pl-1">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E2F0E4] text-[#22572D] text-xs font-bold tracking-wide uppercase shadow-xs">
+<span class="w-2 h-2 rounded-full bg-[#398047] animate-pulse"></span>
+            Low Risk
+          </div>
+<p class="text-xs text-[#7B5341] mt-1.5 font-medium leading-relaxed">
+            Based on current live outdoor conditions &amp; weather metrics.
+          </p>
+</div>
+</div>
+<!-- Editorial Narrative Headline -->
+<div class="mt-5">
+<h2 class="text-xl font-bold text-[#3B1705] leading-snug tracking-tight">
+          High humidity is the main contributor to today’s outdoor risk.
+        </h2>
+</div>
+<!-- Contextual Health Advisory -->
+<div class="mt-3.5 flex items-start gap-2.5 p-3 rounded-2xl bg-white/45 backdrop-blur-xs border border-white/60">
+<svg class="w-5 h-5 text-[#B95D34] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<p class="text-xs font-medium text-[#4D2817] leading-relaxed">
+          Suggested water intake today: <span class="font-bold text-[#31170A]">~2.3 L</span>, given the current ambient heat and daytime load.
+        </p>
+</div>
+<!-- Status Assist Chips -->
+<div class="mt-4 flex flex-wrap gap-2 pt-1 border-t border-[#F0BCA2]/50" data-purpose="sensor-status-chips">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-medium bg-white/60 text-[#6B3A22] border border-white/80">
+<svg class="w-3 h-3 text-[#A86445]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+          No sleep data
+        </span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-medium bg-white/60 text-[#6B3A22] border border-white/80">
+<svg class="w-3 h-3 text-[#A86445]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+          No heart rate data
+        </span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-medium bg-white/60 text-[#6B3A22] border border-white/80">
+<svg class="w-3 h-3 text-[#A86445]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+          No activity data
+        </span>
+</div>
+</section>
+<!-- END: PrimaryHeroCard -->
+<!-- BEGIN: LiveEnvironmentalMetrics -->
+<section class="flex flex-col gap-3" data-purpose="environmental-metrics">
+<!-- Section Header with Pin -->
+<div class="flex items-center justify-between px-1">
+<div class="flex items-center gap-1.5">
+<svg class="w-4 h-4 text-[#B95D34]" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+<path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span class="text-xs font-bold text-[#3B251B]">Hyderabad, Telangana</span>
+</div>
+<span class="text-[11px] text-[#7E695E] font-medium">Updated 8:04 PM</span>
+</div>
+<!-- 2x2 Metric Tiles -->
+<div class="grid grid-cols-2 gap-2.5">
+<!-- Metric Tile: Temperature -->
+<div class="bg-[#F4ECE5] p-4 rounded-3xl border border-[#E9DFD7] flex flex-col justify-between shadow-xs transition-transform active:scale-[0.99]">
+<div class="flex items-center justify-between">
+<span class="text-xs font-semibold text-[#665348]">Temperature</span>
+<div class="w-7 h-7 rounded-full bg-[#EADCCF] flex items-center justify-center text-[#7E4C33]">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+</div>
+<div class="mt-2 flex items-baseline gap-1">
+<span class="text-2xl font-black tracking-tight text-[#2B1B14]">26°</span>
+<span class="text-sm font-semibold text-[#7E695E]">C</span>
+</div>
+<span class="text-[10px] text-[#8C766C] mt-1">Feels like 28°</span>
+</div>
+<!-- Metric Tile: Humidity -->
+<div class="bg-[#F4ECE5] p-4 rounded-3xl border border-[#E9DFD7] flex flex-col justify-between shadow-xs transition-transform active:scale-[0.99]">
+<div class="flex items-center justify-between">
+<span class="text-xs font-semibold text-[#665348]">Humidity</span>
+<div class="w-7 h-7 rounded-full bg-[#EADCCF] flex items-center justify-center text-[#4B6E82]">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+</div>
+<div class="mt-2 flex items-baseline gap-1">
+<span class="text-2xl font-black tracking-tight text-[#B95D34]">71%</span>
+</div>
+<span class="text-[10px] text-[#97583B] font-semibold">Elevated dampness</span>
+</div>
+<!-- Metric Tile: UV Index -->
+<div class="bg-[#F4ECE5] p-4 rounded-3xl border border-[#E9DFD7] flex flex-col justify-between shadow-xs transition-transform active:scale-[0.99]">
+<div class="flex items-center justify-between">
+<span class="text-xs font-semibold text-[#665348]">UV Index</span>
+<div class="w-7 h-7 rounded-full bg-[#EADCCF] flex items-center justify-center text-[#B07B28]">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="5"></circle>
+<path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke-linecap="round"></path>
+</svg>
+</div>
+</div>
+<div class="mt-2 flex items-baseline gap-1">
+<span class="text-2xl font-black tracking-tight text-[#2B1B14]">0.0</span>
+</div>
+<span class="text-[10px] text-emerald-700 font-semibold">Low protection needed</span>
+</div>
+<!-- Metric Tile: Air Quality -->
+<div class="bg-[#F4ECE5] p-4 rounded-3xl border border-[#E9DFD7] flex flex-col justify-between shadow-xs transition-transform active:scale-[0.99]">
+<div class="flex items-center justify-between">
+<span class="text-xs font-semibold text-[#665348]">Air Quality</span>
+<div class="w-7 h-7 rounded-full bg-[#EADCCF] flex items-center justify-center text-[#4B7B55]">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 00-9.78 2.096A4.001 4.001 0 003 15z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+</div>
+<div class="mt-2 flex items-baseline gap-1">
+<span class="text-2xl font-black tracking-tight text-[#2B1B14]">55</span>
+<span class="text-xs font-semibold text-[#755D28]">AQI</span>
+</div>
+<span class="text-[10px] text-[#A86C20] font-semibold">Moderate</span>
+</div>
+</div>
+</section>
+<!-- END: LiveEnvironmentalMetrics -->
+<!-- BEGIN: LocationAndSyncControls -->
+<section class="bg-[#F6EFEA] rounded-3xl p-5 border border-[#ECE0D6] flex flex-col gap-4 shadow-xs" data-purpose="location-sync-card">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="text-sm font-bold text-[#301F17]">Conditions near you</h3>
+<p class="text-xs text-[#7E695E] mt-0.5">Auto-synced with weather station</p>
+</div>
+<div class="flex items-center gap-2">
+<!-- Refresh button -->
+<button aria-label="Refresh conditions" class="px-3.5 py-1.5 text-xs font-medium text-[#4D2817] bg-[#EADCCF] hover:bg-[#DFCABE] active:scale-95 transition-all rounded-full flex items-center gap-1.5" type="button">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+            Refresh
+          </button>
+</div>
+</div>
+<!-- Action Button: GPS Location -->
+<button class="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-full bg-[#6D381E] text-white text-xs font-semibold tracking-wide hover:bg-[#592D17] active:scale-[0.98] transition-all shadow-xs" type="button">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 004 11a7.96 7.96 0 001.353 4.453" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+        Use my current location
+      </button>
+<!-- Quick Search Bar -->
+<div class="flex items-center gap-2 bg-white rounded-2xl p-1.5 pl-3.5 border border-[#DECBC1] focus-within:ring-2 focus-within:ring-[#6D381E]/30 transition-all">
+<input class="w-full bg-transparent text-xs text-[#301F17] placeholder-[#9E8A7F] focus:outline-none border-none p-0 focus:ring-0" placeholder="Search city (e.g. Hyderabad)" type="text">
+<button class="px-4 py-2 bg-[#F3E6DC] text-[#4A2616] text-xs font-bold rounded-xl hover:bg-[#EBD7CA] active:scale-95 transition-all" type="button">
+          Search
+        </button>
+</div>
+<!-- Fast Location Pills -->
+<div class="flex flex-wrap items-center gap-1.5 pt-1">
+<span class="text-[10px] uppercase font-bold text-[#8F776C] mr-1">Quick:</span>
+<button class="px-3 py-1 rounded-full text-xs font-medium bg-[#EFE3DA] text-[#553C31] hover:bg-[#E3D2C6] transition-colors" type="button">Hyderabad</button>
+<button class="px-3 py-1 rounded-full text-xs font-medium bg-[#EFE3DA] text-[#553C31] hover:bg-[#E3D2C6] transition-colors" type="button">Delhi</button>
+<button class="px-3 py-1 rounded-full text-xs font-medium bg-[#EFE3DA] text-[#553C31] hover:bg-[#E3D2C6] transition-colors" type="button">Chennai</button>
+<button class="px-3 py-1 rounded-full text-xs font-medium bg-[#EFE3DA] text-[#553C31] hover:bg-[#E3D2C6] transition-colors" type="button">Mumbai</button>
+</div>
+</section>
+<!-- END: LocationAndSyncControls -->
+<!-- BEGIN: HealthConnectCard -->
+<section class="rounded-3xl bg-[#F6EFEA] border border-[#ECE0D6] p-5 shadow-xs flex flex-col gap-3" data-purpose="wearable-integration">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-[#E5D7CC] flex items-center justify-center text-[#6D381E]">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<div>
+<h3 class="text-sm font-bold text-[#301F17]">Wearable &amp; activity</h3>
+<span class="text-[11px] font-semibold text-[#8C583F]">Health Connect on Android &amp; iOS</span>
+</div>
+</div>
+<p class="text-xs text-[#5C483F] leading-relaxed">
+        Steps, sleep, resting heart rate, exercise, and hydration are read straight from Health Connect — the same privacy store your fitness tracker writes to. <strong class="text-[#2C1A12]">Nothing leaves your device.</strong>
+</p>
+<!-- Action Buttons -->
+<div class="flex items-center gap-3 pt-2">
+<button class="flex-1 py-2.5 px-4 rounded-full bg-[#6D381E] text-white text-xs font-semibold hover:bg-[#572C17] active:scale-[0.98] transition-all text-center" type="button">
+          Connect Health Connect
+        </button>
+<button class="text-xs font-semibold text-[#6E422C] hover:text-[#3B1F12] px-2 py-2" type="button">
+          Skip (Demo)
+        </button>
+</div>
+</section>
+<!-- END: HealthConnectCard -->
+<!-- BEGIN: WhatThisMeansBreakdown -->
+<section class="rounded-3xl bg-[#F6EFEA] border border-[#ECE0D6] p-5 shadow-xs flex flex-col gap-4" data-purpose="insights-breakdown">
+<div>
+<h3 class="text-base font-bold text-[#301F17]">What this means</h3>
+<p class="text-xs text-[#7A6458]">Built from the actual factors driving your index — not guesswork.</p>
+</div>
+<!-- Main Contributor Progress Bar Item -->
+<div class="bg-white/70 rounded-2xl p-3.5 border border-[#E9DFD6]">
+<div class="flex items-center justify-between text-xs mb-2">
+<span class="font-bold text-[#3E2417]">High humidity</span>
+<span class="font-extrabold text-[#B95D34]">70 / 100</span>
+</div>
+<!-- Progress Bar Indicator -->
+<div class="w-full bg-[#EADCCF] h-2.5 rounded-full overflow-hidden">
+<div class="bg-[#B95D34] h-full rounded-full w-[70%]" style="transition: width 1s ease-in-out;"></div>
+</div>
+<!-- Explanation Bullet -->
+<div class="mt-3 flex items-start gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-[#B95D34] mt-1.5 flex-shrink-0"></span>
+<p class="text-xs text-[#534036] leading-relaxed">
+            High humidity reduces the rate of sweat evaporation, making it harder for your body to cool naturally. Take frequent shade breaks and minimize peak afternoon endurance efforts.
+          </p>
+</div>
+<p class="mt-2 text-[10px] text-[#8E786E] italic">
+          Not counted in current score: Sleep, Heart rate, Recent Activity.
+        </p>
+</div>
+<!-- Later Today Projection Strip -->
+<div class="pt-1">
+<h4 class="text-xs font-bold text-[#4B3428] mb-2.5 uppercase tracking-wider">Later today outlook</h4>
+<div class="grid grid-cols-3 gap-2 text-center">
+<!-- Time block 1 -->
+<div class="p-3 bg-white/60 rounded-2xl border border-[#EBE1D8] flex flex-col items-center">
+<span class="text-[11px] font-bold text-[#553C31]">Now</span>
+<div class="w-7 h-3 rounded-full bg-[#4B7B55] my-1.5"></div>
+<span class="text-xs font-black text-[#2F1B12]">23<span class="text-[10px] font-normal text-[#7E695E]">/100</span></span>
+</div>
+<!-- Time block 2 -->
+<div class="p-3 bg-white/60 rounded-2xl border border-[#EBE1D8] flex flex-col items-center">
+<span class="text-[11px] font-bold text-[#553C31]">12:00 AM</span>
+<div class="w-7 h-3 rounded-full bg-[#4B7B55] my-1.5"></div>
+<span class="text-xs font-black text-[#2F1B12]">23<span class="text-[10px] font-normal text-[#7E695E]">/100</span></span>
+</div>
+<!-- Time block 3 -->
+<div class="p-3 bg-white/60 rounded-2xl border border-[#EBE1D8] flex flex-col items-center">
+<span class="text-[11px] font-bold text-[#553C31]">3:00 AM</span>
+<div class="w-7 h-3 rounded-full bg-[#8A893D] my-1.5"></div>
+<span class="text-xs font-black text-[#2F1B12]">28<span class="text-[10px] font-normal text-[#7E695E]">/100</span></span>
+</div>
+</div>
+<!-- Callout Banner -->
+<div class="mt-3 p-3 rounded-2xl bg-[#EBE1D7] text-xs font-medium text-[#463025] flex items-center gap-2">
+<svg class="w-4 h-4 text-[#7A4F39] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span class="">Later conditions aren’t meaningfully better than right now.</span>
+</div>
+</div>
+</section>
+<!-- END: WhatThisMeansBreakdown -->
+<!-- BEGIN: DataAndPrivacyDisclaimer -->
+<footer class="mt-2 px-3 flex flex-col gap-2 text-center text-[11px] text-[#867064] leading-relaxed border-t border-[#E8DCD4] pt-4" data-purpose="medical-privacy-disclaimer">
+<p class="">
+<strong>Synq</strong> estimates heat and outdoor sun risk by combining live micro-weather data with optional Health Connect vitals. It does not provide medical diagnosis or replace clinical judgment. If you experience dizziness, cramps, or distress, rest immediately in a cool area and seek medical care.
+      </p>
+<p class="text-[10px] text-[#A38D82]">
+        Weather &amp; UV metrics sourced transparently via Open-Meteo. Wearable data runs privately and locally on-device.
+      </p>
+<div class="pt-2 flex justify-center items-center gap-4 text-xs font-semibold text-[#5A3826]">
+<span class="">Privacy First</span>
+<span class="">•</span>
+<span class="">Device Encrypted</span>
+<span class="">•</span>
+<span class="">Open Standards</span>
+</div>
+</footer>
+<!-- END: DataAndPrivacyDisclaimer -->
+</main>
+
+
+</body></html>

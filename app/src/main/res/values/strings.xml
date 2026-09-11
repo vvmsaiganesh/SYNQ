@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Synq</string>
+    <string name="health_connect_rationale">Synq reads steps, sleep, resting heart rate,
+        exercise, and hydration from Health Connect to personalise your heat-risk score, and
+        writes the water intake you log back into Health Connect so it stays in sync with your
+        other apps. Your health data is never sent off your device — only the numeric score
+        inputs are combined with weather data locally.</string>
+</resources>

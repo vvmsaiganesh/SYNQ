@@ -1,0 +1,5 @@
+fastapi==0.141.1
+uvicorn[standard]
+pandas
+joblib
+scikit-learn
