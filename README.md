@@ -36,34 +36,5 @@ heat/sun outdoor-activity risk from live weather plus your own **Health Connect*
   produce the same score on both.
 - **Location** — `FusedLocationProviderClient` (Play Services), requested at runtime.
 
-## Design
-
-Dark "glass" aesthetic (see `ui/components/Glass.kt` + `ui/theme/Color.kt`): translucent
-frosted panels with a bright gradient hairline border, ambient blurred colour orbs
-drifting behind the content, a spring-animated risk ring, and shimmering skeleton tiles
-while data loads. It's built entirely with alpha/gradient compositing (no
-`RenderEffect`/backdrop blur), so it renders identically from API 26 up — no minimum
-version cliff for the "glass" look itself.
-
-`ui/theme/Type.kt` uses system serif/sans-serif as stand-ins for the prototype's
-Fraunces/Public Sans webfonts. Drop matching `.ttf` files into `res/font/` and swap the
-two `FontFamily` references in that file if you want pixel-parity with the web version.
 
 ## Permissions declared
-
-- `INTERNET`, `ACCESS_NETWORK_STATE` — weather/geocoding calls.
-- `ACCESS_COARSE_LOCATION`, `ACCESS_FINE_LOCATION` — "Use my location".
-- `health.READ_STEPS`, `READ_SLEEP`, `READ_HEART_RATE`, `READ_RESTING_HEART_RATE`,
-  `READ_EXERCISE`, `READ_HYDRATION`, `WRITE_HYDRATION` — Health Connect.
-
-## Known follow-ups (left for you to decide on, not blockers)
-
-- No app icon artwork beyond a simple vector placeholder — swap
-  `res/drawable/ic_launcher_foreground.xml` for real branding whenever you have it.
-- Bluetooth heart-rate-band pairing from the original web prototype (Web Bluetooth) was
-  intentionally **not** ported — Health Connect's `RestingHeartRateRecord`/
-  `HeartRateRecord` now cover that use case natively (any app that already writes to
-   Health Connect, wearable OEM app included, feeds Synq automatically).
-- `androidx.health.connect:connect-client:1.1.0` is current stable as of this build;
-  check `https://developer.android.com/jetpack/androidx/releases/health-connect` before
-  shipping in case a newer stable has landed.
