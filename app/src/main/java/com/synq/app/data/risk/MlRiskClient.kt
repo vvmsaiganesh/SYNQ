@@ -57,7 +57,7 @@ object MlRiskClient {
         runCatching {
             client.newCall(request).execute().use { response ->
                 if (!response.isSuccessful) return@use null
-                val text = response.body?.string() ?: return@use null
+                val text = response.body.string()
                 json.parseToJsonElement(text).jsonObject["risk_score"]
                     ?.jsonPrimitive?.doubleOrNull
             }
