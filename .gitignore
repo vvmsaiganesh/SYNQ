@@ -1,7 +1,7 @@
 .venv/
 __pycache__/
 *.pyc
-data/
+/data/
 vitalis_model.pkl
 nohup.out
 .gradle/
