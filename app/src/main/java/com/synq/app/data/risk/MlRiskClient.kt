@@ -1,6 +1,7 @@
 package com.synq.app.data.risk
 
 import java.util.concurrent.TimeUnit
+import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
@@ -60,6 +61,10 @@ object MlRiskClient {
                 json.parseToJsonElement(text).jsonObject["risk_score"]
                     ?.jsonPrimitive?.doubleOrNull
             }
+        }.onSuccess { score ->
+            Log.d("MlRiskClient", "predict ok: $score")
+        }.onFailure { error ->
+            Log.w("MlRiskClient", "predict failed: ${error.message}")
         }.getOrNull()
     }
 }
