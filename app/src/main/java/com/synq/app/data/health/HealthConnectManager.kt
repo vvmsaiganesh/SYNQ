@@ -106,8 +106,9 @@ class HealthConnectManager(private val application: Application) {
                 timeRangeFilter = TimeRangeFilter.between(startOfDay, now),
             )
         )
-        val steps = (aggregate[StepsRecord.COUNT_TOTAL] as? Long) ?: 0L
-        val hydrationLiters = (aggregate[HydrationRecord.VOLUME_TOTAL] as? Double) ?: 0.0
+        val steps = aggregate[StepsRecord.COUNT_TOTAL] ?: 0L
+        // VOLUME_TOTAL is an AggregateMetric<Volume>, not a raw Double.
+        val hydrationLiters = aggregate[HydrationRecord.VOLUME_TOTAL]?.inLiters ?: 0.0
         val hydrationMl = (hydrationLiters * 1000.0).toInt().coerceAtLeast(0)
 
         val exerciseRecords = healthClient.readRecords(

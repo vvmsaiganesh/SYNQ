@@ -154,9 +154,10 @@ object RiskEngine {
             }
             .sortedByDescending { it.score }
 
+        val roundedScore = finalScore.roundToInt().coerceIn(0, 100)
         return RiskResult(
-            riskScore = finalScore.roundToInt().coerceIn(0, 100),
-            riskLevel = levelFor(finalScore),
+            riskScore = roundedScore,
+            riskLevel = levelFor(roundedScore.toDouble()),
             dataQuality = dataQuality,
             contributors = contributors,
             recommendations = recommendationsFor(contributors),

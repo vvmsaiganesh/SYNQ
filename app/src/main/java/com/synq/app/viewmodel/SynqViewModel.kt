@@ -317,6 +317,9 @@ class SynqViewModel(application: Application) : AndroidViewModel(application) {
             try {
                 healthConnectManager.logHydration(ml)
                 syncHealthConnect()
+            } catch (e: Exception) {
+                // A revoked permission or provider error must not crash the app.
+                Log.w(TAG, "logHydration failed: ${e.message}")
             } finally {
                 _uiState.update { it.copy(loggingHydration = false) }
             }
