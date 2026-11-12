@@ -119,8 +119,18 @@ class WeatherRepository {
             val humidities = hourly?.get("relative_humidity_2m")?.jsonArray
             val uvs = hourly?.get("uv_index")?.jsonArray
 
-            val now = LocalDateTime.now()
-            val nowIndex = closestHourIndex(times, now)
+            // Align the hourly window to the location's own clock, not the phone's.
+            val locationNow = current["time"]?.jsonPrimitive?.contentOrNullSafe()
+                ?.let {
+                    runCatching {
+                        LocalDateTime.parse(
+                            it,
+                            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm", Locale.US),
+                        )
+                    }.getOrNull()
+                }
+                ?: LocalDateTime.now()
+            val nowIndex = closestHourIndex(times, locationNow)
             val uvNow = uvs?.getOrNullSafe(nowIndex)?.jsonPrimitive?.doubleOrNull
 
             val airQuality = try {

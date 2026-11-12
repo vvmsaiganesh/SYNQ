@@ -10,6 +10,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import kotlin.coroutines.resume
 import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlinx.coroutines.withTimeoutOrNull
 
 sealed class LocationResult {
     data class Success(val lat: Double, val lon: Double) : LocationResult()
@@ -33,8 +34,12 @@ class LocationProvider(private val application: Application) {
         if (!fine && !coarse) return LocationResult.PermissionDenied
 
         return try {
-            val fresh = client.getCurrentLocation(Priority.PRIORITY_BALANCED_POWER_ACCURACY, null).await()
-            val location = fresh ?: client.lastLocation.await()
+            // getCurrentLocation can wait indefinitely for a fresh fix (especially on a
+            // cold emulator), so cap it and fall back to the last known position.
+            val fresh = withTimeoutOrNull(5_000) {
+                client.getCurrentLocation(Priority.PRIORITY_BALANCED_POWER_ACCURACY, null).await()
+            }
+            val location = fresh ?: withTimeoutOrNull(3_000) { client.lastLocation.await() }
             if (location != null) {
                 LocationResult.Success(location.latitude, location.longitude)
             } else {
